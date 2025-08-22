@@ -25,6 +25,8 @@ def get_russian(userInput):
         span.decompose()
     for link in soup.find_all("a"):
         link.unwrap()
+    for img in soup.find_all('img'):
+        img.decompose()
 
 
     #3 - Loop through the Russian section, adding wanted parts to a list, skipping unwanted parts, and returning it
