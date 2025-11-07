@@ -1,7 +1,6 @@
 import sys
 import os
 import webbrowser
-import qdarktheme
  
 from PyQt5.QtCore import QSize, Qt
 from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QLabel, QGridLayout, QLineEdit, QPushButton, QTextBrowser, QSystemTrayIcon, QTableWidget, QTableWidgetItem, QStackedWidget
@@ -46,11 +45,6 @@ class MainWindow(QMainWindow):
         self.excelButton = QPushButton("Show excel data", self)
         self.excelButton.clicked.connect(self.show_excel)
 
-        self.theme_button = QPushButton("🌙")  # Start in dark mode
-        self.theme_button.setCheckable(True)
-        self.theme_button.setChecked(True)  # Assume dark mode is default
-        self.theme_button.clicked.connect(self.toggle_theme)
-       
         today = datetime.now().strftime("%Y-%m-%d")
         self.date_label = QLabel(f"Date: {today}")
         self.date_label.setAlignment(Qt.AlignRight)
@@ -108,14 +102,6 @@ class MainWindow(QMainWindow):
         url = f"https://en.wiktionary.org/wiki/{word}#Russian"
         webbrowser.open(url)
 
-    def toggle_theme(self):
-        if self.theme_button.isChecked():
-            qdarktheme.setup_theme("dark")
-            self.theme_button.setText("🌙") 
-        else:
-            qdarktheme.setup_theme("light")
-            self.theme_button.setText("🌞")  
-
     def show_excel(self):
         if self.stack.currentIndex() == 1: #0 = HTML, 1 = Table
             self.stack.setCurrentIndex(0)
@@ -145,7 +131,6 @@ def main():
     app.setWindowIcon(QIcon(icon_path))
     font = QFont("Arial", 16)
     app.setFont(font)
-    qdarktheme.setup_theme("dark")
  
     tray_icon = QSystemTrayIcon(QIcon(icon_path), parent=app)
     tray_icon.setVisible(True)
@@ -156,4 +141,5 @@ def main():
  
  
 if __name__ == "__main__":
+
     main()
